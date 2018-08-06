@@ -1,5 +1,4 @@
 <view class="contain">
-  <button class="chatOpenBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">获取用户信息</button>
   <view wx:if="{{tab_num==1}}">
     <view class="movie-item" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
       <view class='movie-left'>
