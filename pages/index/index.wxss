@@ -1,0 +1,171 @@
+/* pages/movieList/movieList.wxss */
+.contain{
+  padding-left: 30rpx;
+  padding-bottom: 100rpx;
+}
+.movie-item{
+  padding:20rpx 30rpx 20rpx 0;
+  border-bottom: 1rpx solid #eee;
+  overflow: hidden;
+  height: 200rpx;
+}
+.movie-left{
+  float: left;
+  width: 20%;
+  height: 100%;
+}
+.movie-right{
+  float: left;
+  width: 80%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10rpx;
+}
+.movie-left image{
+  height: 100%;
+  width: 100%;
+}
+.title-wrap{
+  font-size: 40rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.tag-wrap{
+  font-size: 30rpx;
+  margin-top: 50rpx;
+}
+.tag text{
+  margin-right: 10rpx;
+}
+.actor-wrap{
+  font-size: 30rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.score{
+  color: #ff7700;
+}
+.year{
+  font-size: 35rpx;
+}
+.gray{
+  color: #777;
+}
+.fixed{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+.tab-b{
+  background: #F7F7FA;
+  padding:11rpx;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1rpx solid #ccc;
+}
+.tab-b .tab{
+  font-size: 33rpx;
+  color: #7F8389;
+  position: relative;
+  flex-grow: 1;
+  text-align: center;
+}
+.tab-b .tab.active{
+  color: #09BB07;
+}
+.tab-b .tab::after{
+  display: block;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1rpx;
+  background: #aaa;
+}
+.tab-b .tab:last-of-type::after {
+  display: none;
+}
+.scrollWrap{
+  position: fixed;
+  top: 0;
+  bottom: 210rpx;
+  left: 0;
+  right: 0;
+}
+.scrollBox{
+  padding-top: 30rpx;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+::-webkit-scrollbar{width:0;height: 0;color:transparent;}
+.scrollBox .item{
+  padding: 0 30rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+.scrollBox .item>view{
+  float: left
+}
+.scrollBox .item.right>view{
+  float: right
+}
+.scrollBox .item .headImg{
+  margin-right: 15rpx;
+  margin-left: 0;
+}
+.scrollBox .item.right .headImg{
+  margin-right: 0;
+  margin-left: 12rpx;
+}
+.scrollBox .item .headImg image{
+  width: 80rpx;
+  height: 80rpx;
+  margin-top: 3rpx;
+}
+.scrollBox .item .txt{
+  max-width:490rpx;
+  font-size:30rpx;
+  padding:20rpx 15rpx;
+  box-sizing:border-box;
+  background:#fff;
+  border:1rpx solid #ccc;
+  border-radius:20rpx;
+}
+.scrollBox .item.right .txt{
+  background: #b0e46e;
+}
+.inputWrap{
+  position: fixed;
+  bottom: 80rpx;
+  height: 125rpx;
+  width: 100%;
+  box-sizing: border-box;
+  left: 0;
+  border: 1rpx solid #ccc;
+}
+.inputWrap textarea {
+  width:550rpx;
+  height:125rpx;
+  display:inline-block;
+  float:left;
+  font-size: 30rpx;
+}
+.inputWrap button{
+  width:150rpx;
+  float:right;
+  height:125rpx;
+  font-size:30rpx;
+  line-height: 125rpx;
+}
+.chatOpenBtn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}

@@ -1,0 +1,13 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/movieDetail/movieDetail",
+    "pages/chat/chat"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "月牙爱看",
+    "navigationBarTextStyle":"black"
+  }
+}

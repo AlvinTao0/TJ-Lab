@@ -1,0 +1,57 @@
+<view class="contain">
+  <button class="chatOpenBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">获取用户信息</button>
+  <view wx:if="{{tab_num==1}}">
+    <view class="movie-item" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+      <view class='movie-left'>
+        <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
+      </view>
+      <view class='movie-right'>
+        <view class='title-wrap'>
+          <text>
+          <text>{{item.title}} </text>
+          <text class='year'>{{item.year}}</text>
+          </text>
+          <text class='score'>{{item.rating.average}}</text>
+        </view>
+        <view class='tag-wrap'>
+          <text class='gray' wx:for="{{item.genres}}" wx:key="key1" wx:for-item="genre">{{genre}} </text>
+        </view>
+        <view class='actor-wrap'>
+          <text class='gray'>主演:</text>
+          <text class='gray' wx:for="{{item.casts}}" wx:key="key2" wx:for-item="cast">{{cast.name}} </text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{tab_num==2}}">
+    <view class='scrollWrap'>
+      <scroll-view scroll-y class='scrollBox' scroll-top='{{scrollTop}}'>
+        <view wx:for='{{chatMsgs}}' wx:item='item' wx:key='key'>
+          <view class="item {{item.isOwn?'right':''}}" >
+            <view class='headImg'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='txt'>{{item.msg}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class='inputWrap'>
+      <view class="section">
+        <form bindsubmit="bindFormSubmit">
+          <textarea placeholder="点击输入你想说的话..." name="textarea" cursor-spacing='30' value='{{txt}}'/>
+          <button form-type="submit">发送</button>
+        </form>
+      </view>
+    </view>
+  </view>
+  <view class='fixed'>
+    <view class='tab-b'>
+      <view data-num='1' class="tab {{tab_num==1?'active':''}}" bindtap='tabSwitch'>电影</view>
+      <view data-num='2' class="tab {{tab_num==2?'active':''}}" bindtap='tabSwitch'>
+        聊天室
+        <button hidden='{{userInfoBtnHidden}}' class="chatOpenBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun"></button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,18 @@
+<!--pages/chat/chat.wxml-->
+<view class='contain'>
+  <view class='main'>
+    <scroll-view scroll-y class='scrollBox'>
+      <view class='item'>
+        <view class='headImg'></view>
+        <text class='txt'>你好，hello world！</text>
+      </view>
+      <view class='item right'>
+        <view class='headImg'></view>
+        <text class='txt'>你好，hello world！</text>
+      </view>
+      <view class='item right'></view>
+    </scroll-view>
+  </view>
+  <view class='inputWrap'>
+  </view>
+</view>

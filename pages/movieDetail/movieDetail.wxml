@@ -1,0 +1,45 @@
+<!--pages/movieDetail/movieDetail.wxml-->
+<view wx:if='{{show}}'>
+  <view class='top'>
+    <view class='top-l'>
+      <image src='{{detail.images.medium}}'></image>
+    </view>
+    <view class='top-r'>
+      <view class='ttl'>{{detail.title}}</view>
+      <view class='attr'>
+        <text class='key'>年份</text>
+        <text class='value'>{{detail.year}}</text>
+      </view>
+      <view class='attr'>
+        <text class='key'>豆瓣评分</text>
+        <text class='value'>{{detail.rating.average}}</text>
+      </view>
+      <view class='attr'>
+        <text class='key'>国家</text>
+        <text class='value'>
+          <text wx:for='{{detail.countries}}' wx:key='key' wx:for-item='item'>{{item}}        </text></text>
+      </view>
+      <view class='attr'>
+        <text class='key'>导演</text>
+        <text class='value'>{{detail.directors[0].name}}</text>
+      </view>
+      <view class='attr'>
+        <text class='key'>类型</text><text class='value'>
+          <text wx:for='{{detail.genres}}' wx:key='key' wx:for-item='item'>{{item}} </text>
+        </text>
+      </view>
+      <view class='attr'>
+        <text class='key'>主演</text>
+        <text class='value'>
+          <text wx:for='{{detail.casts}}' wx:key='key' wx:for-item='item'>{{item.name}}              </text>
+        </text>
+      </view>
+    </view>
+  </view>
+  <view class='summary'>
+    <text>{{detail.summary}}</text>
+  </view>
+  <view class='photos'>
+    <view class='img' wx:for='{{photos}}' style='background-image: url({{photo.image}})' wx:key='photo' wx:for-item='photo' bindtap='preview' data-src='{{photo.image}}'></view>
+  </view>
+</view>
