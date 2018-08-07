@@ -7,6 +7,7 @@ Page({
   data: {
     show: false,
     detail: {},
+    comments: [],
     photos: [],
     imagesList: []
   },
@@ -41,6 +42,17 @@ Page({
         })
         wx.setNavigationBarTitle({
           title: '月牙爱看-' + res.data.title
+        })
+      }
+    })
+    wx.request({
+      url: 'https://small.tjzmy.cn/v2/movie/subject/' + options.id + '/comments?apikey=0df993c66c0c636e29ecbb5344252a4a&count=3',
+      header: {
+        'content-type': 'json'
+      },
+      success: function(res) {
+        $this.setData({
+          comments: res.data.comments
         })
       }
     })

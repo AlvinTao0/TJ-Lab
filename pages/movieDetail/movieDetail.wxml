@@ -37,9 +37,31 @@
     </view>
   </view>
   <view class='summary'>
-    <text>{{detail.summary}}</text>
+    <view class='summary-title'>简介</view>
+    <view class='summary-content'>{{detail.summary}}</view>
+  </view>
+  <view class='comments'>
+    <view class='comments-title'>短评</view>
+    <view class='comments-list'>
+      <view class='comments-item' wx:for='{{comments}}' wx:key='comment' wx:for-item='comment'>
+        <view class='comments-item-value'>
+          <text class='comments-item-value-color'>{{comment.rating.value}}🌟</text>
+          <text class='comments-item-value-date'>{{comment.created_at}}</text>
+        </view>
+        <view class='comments-item-content'>
+          <text>{{comment.content}}</text>
+        </view>
+        <view class='comments-item-author'>
+          <image src="{{comment.author.avatar}}"></image>
+          <text>{{comment.author.name}}</text>
+        </view>
+      </view>
+    </view>
   </view>
   <view class='photos'>
-    <view class='img' wx:for='{{photos}}' style='background-image: url({{photo.image}})' wx:key='photo' wx:for-item='photo' bindtap='preview' data-src='{{photo.image}}'></view>
+    <view class='photos-title'>剧照</view>
+    <view class='photos-list'>
+      <view class='img' wx:for='{{photos}}' style='background-image: url({{photo.image}})' wx:key='photo' wx:for-item='photo' bindtap='preview' data-src='{{photo.image}}'></view>
+    </view>
   </view>
 </view>
