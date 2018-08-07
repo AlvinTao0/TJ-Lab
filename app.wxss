@@ -8,3 +8,15 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+.hover {
+  animation: hover .5s;
+  animation-fill-mode: forwards;
+}
+@keyframes hover {
+  from {
+    background-color: #FF83FA;
+  }
+  to {
+    background-color: #f7f7f7;
+  }
+}

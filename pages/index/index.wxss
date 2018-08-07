@@ -1,10 +1,9 @@
 /* pages/movieList/movieList.wxss */
 .contain{
-  padding-left: 30rpx;
   padding-bottom: 100rpx;
 }
 .movie-item{
-  padding:20rpx 30rpx 20rpx 0;
+  padding:20rpx 30rpx;
   border-bottom: 1rpx solid #eee;
   overflow: hidden;
   height: 200rpx;

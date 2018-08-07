@@ -1,6 +1,6 @@
 <view class="contain">
   <view wx:if="{{tab_num==1}}">
-    <view class="movie-item" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+    <view class="movie-item" hover-class="hover" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
       <view class='movie-left'>
         <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
       </view>
