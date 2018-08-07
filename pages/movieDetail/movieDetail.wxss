@@ -119,3 +119,10 @@ page {
   vertical-align: middle;
   margin-left:20rpx;
 }
+.comments-more {
+  text-align: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+  font-size: 30rpx;
+  color: #09BB07;
+}

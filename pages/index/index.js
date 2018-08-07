@@ -94,6 +94,7 @@ Page({
   },
   getUserInfoFun: function () {
     var S = this;
+    // 获取用户信息
     wx.getUserInfo({
       success: function (res) {
         console.log("userInfo:" + res);
@@ -120,7 +121,7 @@ Page({
     $this.setData({
       tab_num: event.currentTarget.dataset.num
     })
-    // 获取用户头像，如果拒绝，用默认头像
+    // 第一次点击聊天室以后，隐藏获取用户信息button
     if (event.currentTarget.dataset.num == '2' && !$this.data.userInfoBtnHidden) {
       $this.setData({
         userInfoBtnHidden: true
@@ -131,6 +132,14 @@ Page({
     var $this = this;
     console.log(e.detail.value.textarea)
     var msg = e.detail.value.textarea;
+    $this.send(msg);
+  },
+  inputSubmit: function (e) {
+    var $this = this;
+    $this.send(e.detail.value);
+  },
+  send: function(msg) {
+    var $this = this;
     if (!msg) {
       return;
     }
@@ -140,7 +149,7 @@ Page({
         console.log('发送失败2', res)
         $this.reconnect(msg);
       },
-      success: function(res) {
+      success: function (res) {
         $this.render(msg, $this.data.userInfo.avatarUrl, true);
       }
     })

@@ -38,8 +38,8 @@
     <view class='inputWrap'>
       <view class="section">
         <form bindsubmit="bindFormSubmit">
-          <textarea placeholder="点击输入你想说的话..." name="textarea" cursor-spacing='30' value='{{txt}}'/>
-          <button form-type="submit">发送</button>
+          <textarea placeholder="点击输入你想说的话..." name="textarea" cursor-spacing='30' value='{{txt}}' bindconfirm="inputSubmit" />
+          <!-- <button form-type="submit">发送</button> -->
         </form>
       </view>
     </view>

@@ -140,25 +140,20 @@
 .inputWrap{
   position: fixed;
   bottom: 80rpx;
-  height: 125rpx;
-  width: 100%;
-  box-sizing: border-box;
+  height: 80rpx;
   left: 0;
-  border: 1rpx solid #ccc;
+  right: 0;
+  background: #eee;
+  padding: 10rpx 20rpx;
+}
+.inputWrap .section {
+  border-radius: 20rpx;
+  background: #fff;
 }
 .inputWrap textarea {
-  width:550rpx;
-  height:125rpx;
-  display:inline-block;
-  float:left;
+  height:80rpx;
   font-size: 30rpx;
-}
-.inputWrap button{
-  width:150rpx;
-  float:right;
-  height:125rpx;
-  font-size:30rpx;
-  line-height: 125rpx;
+  padding: 0 15rpx;
 }
 .chatOpenBtn {
   position: absolute;

@@ -9,7 +9,8 @@ Page({
     detail: {},
     comments: [],
     photos: [],
-    imagesList: []
+    imagesList: [],
+    options: {}
   },
 
   /**
@@ -17,6 +18,9 @@ Page({
    */
   onLoad: function (options) {
     let $this = this;
+    $this.setData({
+      options: options
+    })
     // 获取保存到相册的权限
     wx.getSetting({
       success: res => {
@@ -80,6 +84,12 @@ Page({
     wx.previewImage({
       current: src,
       urls: $this.data.imagesList,
+    })
+  },
+  commentsMoreTap: function() {
+    var $this = this;
+    wx.navigateTo({
+      url: '../comments/comments?id=' + $this.options.id
     })
   },
 

@@ -57,6 +57,7 @@
         </view>
       </view>
     </view>
+    <view class='comments-more' bindtap='commentsMoreTap'>浏览更多短评</view>
   </view>
   <view class='photos'>
     <view class='photos-title'>剧照</view>

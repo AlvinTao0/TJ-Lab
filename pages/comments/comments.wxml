@@ -1,0 +1,22 @@
+<!--pages/comments/comments.wxml-->
+<scroll-view wx:if='{{show}}' scroll-y bindscrolltolower='scrollTolower' class='scrollEle'>
+  <view class='comments'>
+    <view class='comments-title'>短评</view>
+    <view class='comments-list'>
+      <view class='comments-item' wx:for='{{commentsData.comments}}' wx:key='comment' wx:for-item='comment'>
+        <view class='comments-item-value'>
+          <text class='comments-item-value-color'>{{comment.rating.value}}🌟</text>
+          <text class='comments-item-value-date'>{{comment.created_at}}</text>
+        </view>
+        <view class='comments-item-content'>
+          <text>{{comment.content}}</text>
+        </view>
+        <view class='comments-item-author'>
+          <image src="{{comment.author.avatar}}"></image>
+          <text>{{comment.author.name}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='comments-loading' wx:if='{{loading}}'>加载中</view>
+  </view>
+</scroll-view>
