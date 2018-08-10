@@ -46,9 +46,13 @@
   </view>
   <view class='fixed'>
     <view class='tab-b'>
-      <view data-num='1' class="tab {{tab_num==1?'active':''}}" bindtap='tabSwitch'>电影</view>
+      <view data-num='1' class="tab {{tab_num==1?'active':''}}" bindtap='tabSwitch'>
+        <view class='tab-icon tab-icon-movie'></view>
+        <view class='tab-label'>电影</view>
+      </view>
       <view data-num='2' class="tab {{tab_num==2?'active':''}}" bindtap='tabSwitch'>
-        聊天室
+        <view class='tab-icon tab-icon-chat'></view>
+        <view class='tab-label'>聊天室</view>
         <button hidden='{{userInfoBtnHidden}}' class="chatOpenBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun"></button>
       </view>
     </view>

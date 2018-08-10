@@ -1,14 +1,14 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/movieDetail/movieDetail",
     "pages/chat/chat",
     "pages/comments/comments"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "月牙爱看",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   }
 }
