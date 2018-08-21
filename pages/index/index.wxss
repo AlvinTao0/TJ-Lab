@@ -66,6 +66,7 @@
 }
 .tab {
   text-align: center;
+  flex: 1;
 }
 .tab-icon {
   display: inline-block;

@@ -30,7 +30,7 @@ Page({
   startSocket: function() {
     var $this = this;
     wx.connectSocket({
-      url: 'wss://small.tjzmy.cn/socket/?img=' + this.data.userInfo.avatarUrl,
+      url: 'wss://small.tjzmy.cn/socket/?img=' + this.data.userInfo.avatarUrl + '&openid=' + app.globalData.openid,
       header: {
         'content-type': 'application/json'
       }
@@ -66,7 +66,7 @@ Page({
   reconnect: function(msg) {
     var $this = this;
     wx.connectSocket({
-      url: 'wss://small.tjzmy.cn/socket/?img=' + $this.data.userInfo.avatarUrl,
+      url: 'wss://small.tjzmy.cn/socket/?img=' + $this.data.userInfo.avatarUrl + '&openid=' + app.globalData.openid,
       header: {
         'content-type': 'application/json'
       }
@@ -95,26 +95,38 @@ Page({
   getUserInfoFun: function () {
     var S = this;
     // 获取用户信息
-    wx.getUserInfo({
-      success: function (res) {
-        console.log("userInfo:" + res);
-        app.globalData.userInfo = res.userInfo;
-        S.setData({
-          userInfo: res.userInfo
-        })
-        S.startSocket();
-      },
-      fail: res => {
-        var userInfo = {
-          avatarUrl: 'http://o71pfzm86.bkt.clouddn.com/u=1587665103,1340804954&fm=21&gp=0.jpg'
+    if (app.globalData.userInfo && app.globalData.userInfo.nickName) {
+      // 已有用户信息
+      S.setData({
+        userInfo: app.globalData.userInfo
+      })
+      S.startSocket();
+      return;
+    } else {
+      // 没有用户信息
+      wx.getUserInfo({
+        success: function (res) {
+          console.log("userInfo:", res);
+          app.globalData.userInfo = res.userInfo;
+          S.setData({
+            userInfo: res.userInfo
+          })
+          S.startSocket();
+          S.saveUserInfo(res.userInfo);
+        },
+        fail: res => {
+          var userInfo = {
+            avatarUrl: 'http://o71pfzm86.bkt.clouddn.com/u=1587665103,1340804954&fm=21&gp=0.jpg'
+          }
+          app.globalData.userInfo = userInfo
+          S.setData({
+            userInfo: userInfo
+          })
+          S.startSocket();
+          S.saveUserInfo(userInfo);
         }
-        app.globalData.userInfo = userInfo
-        this.setData({
-          userInfo: userInfo
-        })
-        this.startSocket();
-      }
-    })
+      })
+    }
   },
   tabSwitch: function(event) {
     let $this = this;
@@ -155,6 +167,21 @@ Page({
     })
     this.setData({
       txt: ''
+    })
+  },
+  saveUserInfo: function(userInfo) {
+    var S = this;
+    userInfo.openid = app.globalData.user.openid;
+    wx.request({
+      url: 'https://small.tjzmy.cn/api/user/save',
+      method: 'post',
+      data: userInfo,
+      header: {
+        'content-type': 'multipart/form-data'
+      },
+      success: function(res) {
+        console.log(res)
+      }
     })
   },
   render: function(msg, img, isOwn) {
