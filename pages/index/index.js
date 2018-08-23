@@ -7,7 +7,10 @@ Page({
     chatMsgs: [],
     txt: '',
     scrollTop: 0,
-    userInfoBtnHidden: false
+    userInfoBtnHidden: false,
+    start: 0,
+    limit: 100,
+    loading: false
   },
   onLoad: function() {
     let $this = this;
@@ -94,6 +97,10 @@ Page({
   },
   getUserInfoFun: function () {
     var S = this;
+
+    // 异步获取聊天历史记录
+    S.getHistory();
+
     // 获取用户信息
     if (app.globalData.userInfo && app.globalData.userInfo.nickName) {
       // 已有用户信息
@@ -188,17 +195,66 @@ Page({
     var $this = this;
     var chat = {
       img: img,
-      msg: msg,
+      message: msg,
       isOwn: isOwn
     }
     var chatMsgs = $this.data.chatMsgs;
     chatMsgs.push(chat);
     $this.setData({
-      chatMsgs: chatMsgs
-    })
-    var length = chatMsgs.length;
-    $this.setData({
+      chatMsgs: chatMsgs,
       scrollTop: 100 * chatMsgs.length
     })
+  },
+  getHistory: function(isUpper) {
+    var S = this;
+    if(S.data.far) {
+      return;
+    }
+    S.setData({
+      loading: true,
+      far: true
+    })
+    wx.request({
+      url: 'https://small.tjzmy.cn/api/chat/list',
+      data: {
+        start: S.data.start,
+        limit: S.data.limit
+      },
+      header: {
+        'content-type': 'json'
+      },
+      success: function (res) {
+        if(res.statusCode == 200 && res.data.data.length > 0) {
+          var chatMsgs = S.data.chatMsgs;
+          chatMsgs = res.data.data.reverse().concat(chatMsgs);
+          S.setData({
+            chatMsgs: chatMsgs,
+            start: S.data.limit + S.data.start
+          })
+          if(!isUpper) {
+            S.setData({
+              scrollTop: 100 * chatMsgs.length
+            })
+          } else {
+            S.setData({
+              scrollTop: 100 * S.data.limit.length
+            })
+          }
+        }
+      },
+      complete: function() {
+        S.setData({
+          loading: false
+        })
+        setTimeout(function() {
+          S.setData({
+            far: false
+          })
+        }, 2000)
+      }
+    })
+  },
+  upper: function() {
+    this.getHistory(true);
   }
 })
