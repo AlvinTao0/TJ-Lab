@@ -8,9 +8,10 @@ Page({
     txt: '',
     scrollTop: 0,
     userInfoBtnHidden: false,
-    start: 0,
-    limit: 100,
-    loading: false
+    start: 'Infinity',
+    limit: 20,
+    loading: false,
+    enouth: false
   },
   onLoad: function() {
     let $this = this;
@@ -30,6 +31,7 @@ Page({
       }
     })
   },
+  // 开始第一次链接websocket
   startSocket: function() {
     var $this = this;
     wx.connectSocket({
@@ -47,7 +49,7 @@ Page({
           console.log('发送失败1', res)
         },
         success: function(res) {
-          $this.render(msg, $this.data.userInfo.avatarUrl, true);
+          console.log('收到服务器内容：', res);
         }
       })
     })
@@ -57,7 +59,7 @@ Page({
     wx.onSocketMessage(function (res) {
       console.log('收到服务器内容：' + res.data);
       var resdata = JSON.parse(res.data);
-      $this.render(resdata.message, resdata.img, false);
+      $this.render(resdata);
     })
     wx.onSocketClose(function(res) {
       console.log('Socket链接关闭');
@@ -83,7 +85,7 @@ Page({
             console.log('重新链接并发送失败', res);
           },
           success: function(res) {
-            $this.render(msg, $this.data.userInfo.avatarUrl, true);
+            console.log('收到服务器内容：', res.data);
           }
         })
       }
@@ -169,7 +171,6 @@ Page({
         $this.reconnect(msg);
       },
       success: function (res) {
-        $this.render(msg, $this.data.userInfo.avatarUrl, true);
       }
     })
     this.setData({
@@ -191,13 +192,8 @@ Page({
       }
     })
   },
-  render: function(msg, img, isOwn) {
+  render: function(chat) {
     var $this = this;
-    var chat = {
-      img: img,
-      message: msg,
-      isOwn: isOwn
-    }
     var chatMsgs = $this.data.chatMsgs;
     chatMsgs.push(chat);
     $this.setData({
@@ -207,7 +203,7 @@ Page({
   },
   getHistory: function(isUpper) {
     var S = this;
-    if(S.data.far) {
+    if(S.data.far || S.data.enough) {
       return;
     }
     S.setData({
@@ -215,7 +211,7 @@ Page({
       far: true
     })
     wx.request({
-      url: 'https://small.tjzmy.cn/api/chat/list',
+      url: 'https://small.tjzmy.cn/api/chat/list2',
       data: {
         start: S.data.start,
         limit: S.data.limit
@@ -224,20 +220,28 @@ Page({
         'content-type': 'json'
       },
       success: function (res) {
-        if(res.statusCode == 200 && res.data.data.length > 0) {
-          var chatMsgs = S.data.chatMsgs;
-          chatMsgs = res.data.data.reverse().concat(chatMsgs);
-          S.setData({
-            chatMsgs: chatMsgs,
-            start: S.data.limit + S.data.start
-          })
-          if(!isUpper) {
+        if(res.statusCode == 200) {
+          if(res.data.data.length > 0) {
+            var chatMsgs = S.data.chatMsgs;
+            chatMsgs = res.data.data.reverse().concat(chatMsgs);
             S.setData({
-              scrollTop: 100 * chatMsgs.length
+              chatMsgs: chatMsgs,
+              start: res.data.data[0].td
             })
+            console.log('td', S.data.start)
+            if(!isUpper) {
+              S.setData({
+                scrollTop: 100 * chatMsgs.length + 'rpx'
+              })
+            } else {
+              S.setData({
+                scrollTop: 100 * S.data.limit.length + 'rpx'
+              })
+            }
           } else {
+            console.log('enough')
             S.setData({
-              scrollTop: 100 * S.data.limit.length
+              enough: true
             })
           }
         }
