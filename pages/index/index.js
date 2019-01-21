@@ -178,8 +178,9 @@ Page({
     })
   },
   saveUserInfo: function(userInfo) {
+    console.log(app.globalData)
     var S = this;
-    userInfo.openid = app.globalData.user.openid;
+    userInfo.openid = app.globalData.openid;
     wx.request({
       url: 'https://small.tjzmy.cn/api/user/save',
       method: 'post',

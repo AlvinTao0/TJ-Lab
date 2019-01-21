@@ -32,7 +32,7 @@
             <view class='headImg'>
               <image src='{{item.img}}'></image>
             </view>
-            <view class='txt'>{{item.message}} {{item.td}}</view>
+            <view class='txt'>{{item.message}}</view>
           </view>
         </view>
       </scroll-view>
