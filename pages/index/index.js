@@ -103,9 +103,9 @@ Page({
     })
   },
   openUserInfo: function(event) {
-    let _id = event.currentTarget.dataset._id;
+    let openid = event.currentTarget.dataset.openid;
     wx.navigateTo({
-      url: '../userInfo/userInfo?_id=' + _id
+      url: '../userInfo/userInfo?openid=' + openid
     })
   },
   getUserInfoFun: function () {

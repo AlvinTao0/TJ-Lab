@@ -28,10 +28,10 @@ Page({
   getUserInfo: function(_id) {
     var $this = this;
     // 测试_id:
-    // var _id = $this.options._id || '5c452505c1105d53ea45578e';
-    var _id = $this.options._id;
+    // var openid = $this.options.openid || 'ohHIS0TfvAJZugBZW3e6A4Wcsibo';
+    var openid = $this.options.openid;
     wx.request({
-      url: 'https://small.tjzmy.cn/api/user/info?_id=' + _id,
+      url: 'https://small.tjzmy.cn/api/user/info?openid=' + openid,
       header: {
         'content-type': 'json'
       },

@@ -29,7 +29,7 @@
         <view class='loading' wx:if="{{enough}}">暂无更多记录</view>
         <view wx:for='{{chatMsgs}}' wx:item='item' wx:key='key'>
           <view class="item {{item.openid == userInfo.openid ?'right':''}}" >
-            <view class='headImg' bindtap='openUserInfo' data-_id='{{item.userId}}'>
+            <view class='headImg' bindtap='openUserInfo' data-openid='{{item.openid}}'>
               <image src='{{item.img}}'></image>
             </view>
             <view class='txt'>{{item.message}}</view>
