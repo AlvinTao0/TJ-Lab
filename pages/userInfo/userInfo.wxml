@@ -1,0 +1,21 @@
+<!--pages/userInfo/userInfo.wxml-->
+<!--pages/movieDetail/movieDetail.wxml-->
+<view wx:if='{{show}}'>
+  <view class='avatar-wrap'>
+    <image src='{{userInfo.avatarUrl}}' mode='aspectFill'></image>
+  </view>
+  <view class='list-wrap'>
+    <view class='list-item'>
+      <view class='list-item-title'>姓名</view>
+      <view class='list-item-value'>{{userInfo.nickName}}</view>
+    </view>
+    <view class='list-item'>
+      <view class='list-item-title'>性别</view>
+      <view class='list-item-value'>{{userInfo.gender ? '男' : '女'}}</view>
+    </view>
+    <view class='list-item'>
+      <view class='list-item-title'>地区</view>
+      <view class='list-item-value'>{{userInfo.city}} {{userInfo.province}} {{userInfo.country}}</view>
+    </view>
+  </view>
+</view>

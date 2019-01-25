@@ -28,8 +28,8 @@
         <view class='loading' wx:if="{{loading}}">加载中...</view>
         <view class='loading' wx:if="{{enough}}">暂无更多记录</view>
         <view wx:for='{{chatMsgs}}' wx:item='item' wx:key='key'>
-          <view class="item {{item.openId == app.globalData.openid ?'right':''}}" >
-            <view class='headImg'>
+          <view class="item {{item.openid == userInfo.openid ?'right':''}}" >
+            <view class='headImg' bindtap='openUserInfo' data-_id='{{item.userId}}'>
               <image src='{{item.img}}'></image>
             </view>
             <view class='txt'>{{item.message}}</view>

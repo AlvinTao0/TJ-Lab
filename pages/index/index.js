@@ -15,6 +15,7 @@ Page({
   },
   onLoad: function() {
     let $this = this;
+    // app.setWatcher(this.data, this.watch, this);
     wx.setNavigationBarTitle({
       title: '月牙爱看-热映电影'
     })
@@ -30,7 +31,10 @@ Page({
         })
       }
     })
+    // 聊天
+    $this.getHistory();
   },
+  
   // 开始第一次链接websocket
   startSocket: function() {
     var $this = this;
@@ -58,6 +62,7 @@ Page({
     })
     wx.onSocketMessage(function (res) {
       console.log('收到服务器内容：' + res.data);
+      console.log('收到信息时用户的信息data.userInfo', $this.data.userInfo)
       var resdata = JSON.parse(res.data);
       $this.render(resdata);
     })
@@ -97,11 +102,14 @@ Page({
       url: '../movieDetail/movieDetail?id=' + movie.id
     })
   },
+  openUserInfo: function(event) {
+    let _id = event.currentTarget.dataset._id;
+    wx.navigateTo({
+      url: '../userInfo/userInfo?_id=' + _id
+    })
+  },
   getUserInfoFun: function () {
     var S = this;
-
-    // 异步获取聊天历史记录
-    S.getHistory();
 
     // 获取用户信息
     if (app.globalData.userInfo && app.globalData.userInfo.nickName) {
@@ -110,44 +118,46 @@ Page({
         userInfo: app.globalData.userInfo
       })
       S.startSocket();
+      S.setData({
+        userInfoBtnHidden: true,
+        tab_num: '2'
+      })
       return;
     } else {
       // 没有用户信息
       wx.getUserInfo({
         success: function (res) {
           console.log("userInfo:", res);
+          res.userInfo.openid = app.globalData.openid;
           app.globalData.userInfo = res.userInfo;
           S.setData({
             userInfo: res.userInfo
           })
           S.startSocket();
           S.saveUserInfo(res.userInfo);
+          S.setData({
+            userInfoBtnHidden: true,
+            tab_num: '2'
+          })
         },
         fail: res => {
-          var userInfo = {
-            avatarUrl: 'http://o71pfzm86.bkt.clouddn.com/u=1587665103,1340804954&fm=21&gp=0.jpg'
-          }
-          app.globalData.userInfo = userInfo
+          // 用户拒绝，返回前一页
           S.setData({
-            userInfo: userInfo
+            tab_num: '1'
           })
-          S.startSocket();
-          S.saveUserInfo(userInfo);
         }
       })
     }
   },
   tabSwitch: function(event) {
     let $this = this;
+    let tab_num = event.currentTarget.dataset.num;
+    if (tab_num == '2' && !$this.data.userInfoBtnHidden) {
+      return;
+    }
     $this.setData({
       tab_num: event.currentTarget.dataset.num
     })
-    // 第一次点击聊天室以后，隐藏获取用户信息button
-    if (event.currentTarget.dataset.num == '2' && !$this.data.userInfoBtnHidden) {
-      $this.setData({
-        userInfoBtnHidden: true
-      });
-    }
   },
   bindFormSubmit: function (e) {
     var $this = this;
@@ -178,9 +188,7 @@ Page({
     })
   },
   saveUserInfo: function(userInfo) {
-    console.log(app.globalData)
     var S = this;
-    userInfo.openid = app.globalData.openid;
     wx.request({
       url: 'https://small.tjzmy.cn/api/user/save',
       method: 'post',

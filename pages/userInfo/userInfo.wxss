@@ -1,0 +1,34 @@
+/* pages/userInfo/userInfo.wxss */
+.avatar-wrap {
+  width: 200rpx;
+  height: 200rpx;
+  margin: 50rpx auto 0;
+}
+.avatar-wrap image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.list-wrap {
+  margin-top: 50rpx;
+  border-top: .5rpx solid #eee;
+  border-bottom: .5rpx solid #eee;
+  padding:0 20rpx;
+}
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: .5rpx solid #eee;
+  padding: 20rpx 0;
+}
+.list-item:last-of-type {
+  border: 0;
+}
+.list-item-title {
+  white-space: nowrap;
+}
+.list-item-value {
+  color: #777;
+  text-align: right;
+  margin-left: 50rpx;
+}

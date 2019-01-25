@@ -2,8 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/movieDetail/movieDetail",
-    "pages/chat/chat",
-    "pages/comments/comments"
+    "pages/comments/comments",
+    "pages/userInfo/userInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
