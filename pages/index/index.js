@@ -6,7 +6,7 @@ Page({
     userInfo: {},
     chatMsgs: [],
     txt: '',
-    scrollTop: 0,
+    scrollToView: null,
     userInfoBtnHidden: false,
     start: 'Infinity',
     limit: 20,
@@ -46,16 +46,16 @@ Page({
     })
     wx.onSocketOpen(function (res) {
       console.log('WebSocket连接已打开！');
-      var msg = '大家好';
-      wx.sendSocketMessage({
-        data: msg,
-        fail: function (res) {
-          console.log('发送失败1', res)
-        },
-        success: function(res) {
-          console.log('收到服务器内容：', res);
-        }
-      })
+      // var msg = '大家好';
+      // wx.sendSocketMessage({
+      //   data: msg,
+      //   fail: function (res) {
+      //     console.log('发送失败1', res)
+      //   },
+      //   success: function(res) {
+      //     console.log('收到服务器内容：', res);
+      //   }
+      // })
     })
     wx.onSocketError(function (res) {
       console.log('WebSocket连接打开失败，请检查！');
@@ -207,7 +207,7 @@ Page({
     chatMsgs.push(chat);
     $this.setData({
       chatMsgs: chatMsgs,
-      scrollTop: 100 * chatMsgs.length
+      scrollToView: '_' + chatMsgs[chatMsgs.length-1].td
     })
   },
   getHistory: function(isUpper) {
@@ -232,21 +232,27 @@ Page({
         if(res.statusCode == 200) {
           if(res.data.data.length > 0) {
             var chatMsgs = S.data.chatMsgs;
+            var scrollToView = null;
+            if (chatMsgs.length > 0) {
+              scrollToView = '_' + chatMsgs[0].td;
+            } 
             chatMsgs = res.data.data.reverse().concat(chatMsgs);
             S.setData({
               chatMsgs: chatMsgs,
               start: res.data.data[0].td
             })
             console.log('td', S.data.start)
-            if(!isUpper) {
-              S.setData({
-                scrollTop: 100 * chatMsgs.length + 'rpx'
-              })
-            } else {
-              S.setData({
-                scrollTop: 100 * S.data.limit.length + 'rpx'
-              })
-            }
+            setTimeout(function() {
+              if(!isUpper) {
+                S.setData({
+                  scrollToView: '_' + chatMsgs[chatMsgs.length - 1].td
+                })
+              } else {
+                S.setData({
+                  scrollToView: scrollToView
+                })
+              }
+            }, 1)
           } else {
             console.log('enough')
             S.setData({
@@ -263,7 +269,7 @@ Page({
           S.setData({
             far: false
           })
-        }, 2000)
+        }, 1000)
       }
     })
   },
