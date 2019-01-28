@@ -1,6 +1,6 @@
 <view class="contain">
   <view wx:if="{{tab_num==1}}">
-    <view class="movie-item" hover-class="hover" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+    <!-- <view class="movie-item" hover-class="hover" wx:for="{{movies}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
       <view class='movie-left'>
         <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
       </view>
@@ -20,6 +20,90 @@
           <text class='gray' wx:for="{{item.casts}}" wx:key="key2" wx:for-item="cast">{{cast.name}} </text>
         </view>
       </view>
+    </view> -->
+    <view class='menu-top'>
+      <view data-index="0" bindtap='swiperTo' class="menu-item {{swiperIndex == 0 ? 'active' : ''}}">热映中</view>
+      <view data-index="1" bindtap='swiperTo' class="menu-item {{swiperIndex == 1 ? 'active' : ''}}">即将上映</view>
+      <view data-index="2" bindtap='swiperTo' class="menu-item {{swiperIndex == 2 ? 'active' : ''}}">Top50</view>
+    </view>
+    <view class='swiper-index'>
+      <swiper style='height: 100%;box-sizing: border-box;' duration='300' bindchange='swiperChange' current='{{swiperIndex}}'>
+        <swiper-item>
+          <scroll-view scroll-y style='height: 100%;'>
+            <view class="movie-item" hover-class="hover" wx:for="{{in_theaters}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+              <view class='movie-left'>
+                <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
+              </view>
+              <view class='movie-right'>
+                <view class='title-wrap'>
+                  <text>
+                  <text>{{item.title}} </text>
+                  <text class='year'>{{item.year}}</text>
+                  </text>
+                  <text class='score'>{{item.rating.average}}</text>
+                </view>
+                <view class='tag-wrap'>
+                  <text class='gray' wx:for="{{item.genres}}" wx:key="key1" wx:for-item="genre">{{genre}} </text>
+                </view>
+                <view class='actor-wrap'>
+                  <text class='gray'>主演:</text>
+                  <text class='gray' wx:for="{{item.casts}}" wx:key="key2" wx:for-item="cast">{{cast.name}} </text>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </swiper-item>
+        <swiper-item>
+          <scroll-view scroll-y style='height: 100%;'>
+            <view class="movie-item" hover-class="hover" wx:for="{{comingSoon}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+              <view class='movie-left'>
+                <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
+              </view>
+              <view class='movie-right'>
+                <view class='title-wrap'>
+                  <text>
+                  <text>{{item.title}} </text>
+                  <text class='year'>{{item.year}}</text>
+                  </text>
+                  <text class='score'>{{item.rating.average}}</text>
+                </view>
+                <view class='tag-wrap'>
+                  <text class='gray' wx:for="{{item.genres}}" wx:key="key1" wx:for-item="genre">{{genre}} </text>
+                </view>
+                <view class='actor-wrap'>
+                  <text class='gray'>主演:</text>
+                  <text class='gray' wx:for="{{item.casts}}" wx:key="key2" wx:for-item="cast">{{cast.name}} </text>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </swiper-item>
+        <swiper-item>
+          <scroll-view scroll-y style='height: 100%;'>
+            <view class="movie-item" hover-class="hover" wx:for="{{topMovie}}"  wx:key="item" wx:for-item="item" data-movie="{{item}}" bindtap="detail">
+              <view class='movie-left'>
+                <image src='{{item.images.medium}}' data-src='{{item.images.medium}}'></image>
+              </view>
+              <view class='movie-right'>
+                <view class='title-wrap'>
+                  <text>
+                  <text>{{item.title}} </text>
+                  <text class='year'>{{item.year}}</text>
+                  </text>
+                  <text class='score'>{{item.rating.average}}</text>
+                </view>
+                <view class='tag-wrap'>
+                  <text class='gray' wx:for="{{item.genres}}" wx:key="key1" wx:for-item="genre">{{genre}} </text>
+                </view>
+                <view class='actor-wrap'>
+                  <text class='gray'>主演:</text>
+                  <text class='gray' wx:for="{{item.casts}}" wx:key="key2" wx:for-item="cast">{{cast.name}} </text>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </swiper-item>
+      </swiper>
     </view>
   </view>
   <view wx:if="{{tab_num==2}}">

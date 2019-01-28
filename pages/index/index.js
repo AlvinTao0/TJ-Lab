@@ -1,7 +1,10 @@
 const app = getApp();
 Page({
   data: {
-    movies: [],
+    in_theaters: [],
+    comingSoon: [],
+    topMovie: [],
+    swiperIndex: 0,
     tab_num: '1',
     userInfo: {},
     chatMsgs: [],
@@ -11,7 +14,17 @@ Page({
     start: 'Infinity',
     limit: 20,
     loading: false,
-    enouth: false
+    enouth: false,
+
+    imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ],
+    indicatorDots: false,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000
   },
   onLoad: function() {
     let $this = this;
@@ -20,21 +33,65 @@ Page({
       title: '月牙爱看-热映电影'
     })
     // 电影
-    wx.request({
-      url: 'https://small.tjzmy.cn/v2/movie/in_theaters',
-      header: {
-        "Content-Type": "json"
-      },
-      success: function(res) {
-        $this.setData({
-          movies: res.data.subjects
-        })
-      }
-    })
+    $this.getMovies();
     // 聊天
     $this.getHistory();
   },
-  
+
+  // swiper
+  swiperChange(e) {
+    console.log(e)
+    this.setData({
+      swiperIndex: e.detail.current
+    })
+  },
+  swiperTo(e) {
+    this.setData({
+      swiperIndex: e.currentTarget.dataset.index
+    })
+  },
+  changeAutoplay(e) {
+    this.setData({
+      autoplay: !this.data.autoplay
+    })
+  },
+  intervalChange(e) {
+    this.setData({
+      interval: e.detail.value
+    })
+  },
+  durationChange(e) {
+    this.setData({
+      duration: e.detail.value
+    })
+  },
+  // 获取电影数据
+  getMovies: function() {
+    var $this = this;
+    var apis = [
+      { api: 'in_theaters', name: 'in_theaters'},
+      { api: 'coming_soon', name: 'comingSoon'},
+      { api: 'top250?start=0&count=50', name: 'topMovie'}
+    ]
+    apis.forEach(item => {
+      $this.getMovieByApi(item.api, item.name)
+    })
+  },
+  getMovieByApi: function(api, name) {
+    var $this = this;
+    wx.request({
+      url: 'https://small.tjzmy.cn/v2/movie/' + api,
+      header: {
+        "Content-Type": "json"
+      },
+      success: function (res) {
+        var obj = {};
+        obj[name] = res.data.subjects;
+        $this.setData(obj);
+      }
+    })
+  },
+
   // 开始第一次链接websocket
   startSocket: function() {
     var $this = this;

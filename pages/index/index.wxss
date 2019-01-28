@@ -2,6 +2,28 @@
 .contain{
   padding-bottom: 100rpx;
 }
+.menu-top {
+  display: flex;
+  justify-content: space-around;
+  background: #FAFAFA;
+}
+.menu-item {
+  flex: 1;
+  font-size: 30rpx;
+  color: #777;
+  text-align: center;
+  line-height: 2.5em;
+}
+.menu-item.active {
+  color: rgba(255, 131, 250, 1);
+}
+.swiper-index {
+  position: absolute;
+  width: 100%;
+  top: 74rpx;
+  bottom: 93rpx;
+  left: 0;
+}
 .movie-item{
   padding:20rpx 30rpx;
   border-bottom: 1rpx solid #eee;
